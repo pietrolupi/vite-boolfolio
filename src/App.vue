@@ -24,8 +24,9 @@
       }
     },
     methods: {
-      getApi(){
-        axios.get(store.apiUrl + 'projects')
+      getApi(endpoint){
+        this.isLoading = true;
+        axios.get(endpoint)
         .then(res=>{
           console.log(res.data);
           store.projects = res.data.data;
@@ -34,12 +35,12 @@
         })
       },
 
-      callApi(linkUrl){
+     /*  callApi(linkUrl){
         console.log(linkUrl);
-      }
+      }  sposto tutta la funzionalità direttamente in getApi, usando un parametro "endpoint" che userò sia per fare la chiamata iniziale dandogli direttamente l'url in mounted(){}  */ 
     },
     mounted() {
-      this.getApi();
+      this.getApi(store.apiUrl + 'projects');
     }
   }
 </script>
@@ -62,7 +63,7 @@
       
       <PaginatorNav 
       :links = "links"
-      @callApi="callApi"/>   <!-- passo la props (vedi PaginatorNav ) -->  <!-- @callApi è il nome $emit, =funzione che richiamo -->
+      @callApi="getApi"/>   <!-- passo la props (vedi PaginatorNav ) -->  <!-- @callApi è il nome $emit, =funzione che richiamo -->
     </div>
    
   </main>
@@ -82,6 +83,7 @@
 
   .pag-nav-container {
     width: 600px;
+    margin: 0 300px;
     
   }
 </style>
