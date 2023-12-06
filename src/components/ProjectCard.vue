@@ -1,11 +1,15 @@
 <script>
+  import {store} from '../data/store';
+
+
   export default {
 
-    name:'ProjectsMain',
+    name:'ProjectCard',
     
     data(){
       return{
         title:'Pagina Component Projects',
+        store,
       }
     },
   
@@ -15,7 +19,11 @@
 <template>
   <div>
     <h1>{{title}}</h1>
-    <h2>ciaoooooooooo</h2>
+    <ul>
+      <li v-for="project in store.projects" :key="project.id">
+        {{ project.title }}
+      </li>
+    </ul>
   </div>
 
 </template>

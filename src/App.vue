@@ -1,21 +1,27 @@
 <script>
   import axios from 'axios';
   import {store} from  './data/store';
-  import ProjectsMain from './components/ProjectsMain.vue';
+  import ProjectCard from './components/ProjectCard.vue';
 
-  
 
   export default {
     name: 'App',
+
+    components: {
+      ProjectCard,
+    },
+
     data() {
       return {
-        store: store
+        store,
       }
     },
     methods: {
       getApi(){
-        axios.get(store.apiUrl + 'projects').then(res=>{
+        axios.get(store.apiUrl + 'projects')
+        .then(res=>{
           console.log(res.data);
+          store.projects = res.data;
         })
       }
     },
@@ -28,10 +34,13 @@
 <template>
   <header>
     <h1>Vite Boolfolio</h1>
+    
+   
   </header>
 
   <main>
-    <ProjectsMain />
+    <ProjectCard />
+   
   </main>
 </template>
 
