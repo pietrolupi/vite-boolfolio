@@ -3,6 +3,7 @@
   import {store} from  './data/store';
   import ProjectCard from './components/ProjectCard.vue';
   import Loader from './components/Loader.vue';
+  import PaginatorNav from './components/PaginatorNav.vue';
 
 
   export default {
@@ -12,12 +13,14 @@
     components: {
       ProjectCard,
       Loader,
+      PaginatorNav,
     },
 
     data() {
       return {
         store,
         isLoading: true,
+        links: [],  /* links */
       }
     },
     methods: {
@@ -26,8 +29,13 @@
         .then(res=>{
           console.log(res.data);
           store.projects = res.data.data;
+          this.links = res.data.links; /* links */
           this.isLoading = false;
         })
+      },
+
+      callApi(linkUrl){
+        console.log(linkUrl);
       }
     },
     mounted() {
@@ -49,6 +57,13 @@
 
     </div>
     <ProjectCard v-else />
+
+    <div class="pag-nav-container" v-if="!isLoading">
+      
+      <PaginatorNav 
+      :links = "links"
+      @callApi="callApi"/>   <!-- passo la props (vedi PaginatorNav ) -->  <!-- @callApi è il nome $emit, =funzione che richiamo -->
+    </div>
    
   </main>
 </template>
@@ -63,5 +78,10 @@
   }
   .loader-container {
     margin-top: 120px;
+  }
+
+  .pag-nav-container {
+    width: 600px;
+    
   }
 </style>
