@@ -21,4 +21,10 @@ export default {
 
 <style lang="scss" scoped>
 
+h1{
+    text-align: center;
+    font-size: 4.5rem;
+    padding-top: 100px;
+  }
+
 </style>

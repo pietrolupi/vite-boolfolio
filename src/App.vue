@@ -42,9 +42,6 @@
 <style lang="scss">
   .main-wrapper {
     
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height:calc(100vh - 90px);
     width: 100%;
     background-color: burlywood;
@@ -54,8 +51,6 @@
     1px -1px 0 black,
     -1px 1px 0 black,
     1px 1px 0 black;
-    h1{
-      font-size: 4rem;
-    }
+   
   }
 </style>

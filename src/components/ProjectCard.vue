@@ -40,7 +40,7 @@
     .project-card{
         width: 400px;
         height: 300px;
-        background-color: white;
+        background-color: rgb(86, 86, 86);
         border: 1px solid black;
         border-radius: 20px;
         margin: 20px;
