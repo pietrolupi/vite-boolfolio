@@ -20,7 +20,13 @@
       return {
         store,
         isLoading: true,
-        links: [],  /* links */
+        paginator: {
+          links: [],  /* links */
+          first_page_url: '',
+          last_page_url: '',
+          current_page: '',
+          last_page: '',
+        }
       }
     },
     methods: {
@@ -30,8 +36,16 @@
         .then(res=>{
           console.log(res.data);
           store.projects = res.data.data;
-          this.links = res.data.links; /* links */
+          this.paginator.links = res.data.links; /* links */
+          console.log(res.data.first_page_url);
           this.isLoading = false;
+
+          //prima ed ultima pagina 
+          this.paginator.first_page_url = res.data.first_page_url;
+          this.paginator.last_page_url = res.data.last_page_url;
+          //dati che passo per capire quando disabilitare i bottoni first & last
+          this.paginator.current_page = res.data.current_page;
+          this.paginator.last_page = res.data.last_page;
         })
       },
 
@@ -40,7 +54,9 @@
       }  sposto tutta la funzionalità direttamente in getApi, usando un parametro "endpoint" che userò sia per fare la chiamata iniziale dandogli direttamente l'url in mounted(){}  */ 
     },
     mounted() {
+
       this.getApi(store.apiUrl + 'projects');
+      
     }
   }
 </script>
@@ -62,7 +78,8 @@
     <div class="pag-nav-container" v-if="!isLoading">
       
       <PaginatorNav 
-      :links = "links"
+      :paginator = "paginator"
+      
       @callApi="getApi"/>   <!-- passo la props (vedi PaginatorNav ) -->  <!-- @callApi è il nome $emit, =funzione che richiamo -->
     </div>
    

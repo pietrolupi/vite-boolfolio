@@ -1,11 +1,29 @@
 
 
 <script>
-export default {
+  import {store} from '../data/store';
+
+  export default {
   name: 'PaginatorNav',
 
+  props: {
+    paginator: Object,
+  },
+
+  data() {
+    return {
+      store,
+    };
+  },
+
   props:{
-    links: Array,    /* props di links (vedi App.vue) */
+
+    paginator: Object,
+
+    //raggrupiamo tutti nell'object paginator
+    /* links: Array,
+    first_page_url: String,
+    last_page_url: String,   */  /* props di links (vedi App.vue) */
   },
 
   methods: {
@@ -18,16 +36,30 @@ export default {
 
 <template>
   <div>
+
+    <button
+    @click = "callApi(paginator.first_page_url)"
+    :disabled="paginator.current_page == 1">
+      FIRST 
+    </button>
+
     <button 
-    v-for="link in links" 
+    v-for="link in paginator.links" 
     :key="link.label" 
     v-html="link.label"    
     :disabled="link.active || link.url === null"
     @click = "callApi(link.url)"
     > 
-  </button>
+    </button>
   <!-- la seconda condizione nel :disabled è per disattivare i pulsanti next e previous quando non portano a nessuna pagina. Il loro url sarà null quando non posso andare da nessuna parte cliccandoci -->
-  </div>
+
+    <button
+    @click = "callApi(paginator.last_page_url)"
+    :disabled = "paginator.current_page === paginator.last_page">
+      LAST 
+    </button>
+
+    </div>
 </template>
 
 <style lang="scss" scoped>

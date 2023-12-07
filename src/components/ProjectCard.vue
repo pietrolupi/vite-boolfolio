@@ -5,13 +5,16 @@
   export default {
 
     name:'ProjectCard',
-    
+
     data(){
       return{
         title:'Pagina Component Projects',
         store,
       }
     },
+    mounted(){
+      console.log(this.store.projects);
+    }
   
   }
 </script>
