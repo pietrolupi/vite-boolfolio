@@ -4,6 +4,7 @@
   import ProjectCard from './components/ProjectCard.vue';
   import Loader from './components/Loader.vue';
   import PaginatorNav from './components/PaginatorNav.vue';
+  import Header from './components/Header.vue';
 
 
   export default {
@@ -11,96 +12,50 @@
     
 
     components: {
-      ProjectCard,
-      Loader,
-      PaginatorNav,
+      Header,
     },
 
     data() {
       return {
-        store,
-        isLoading: true,
-        paginator: {
-          links: [],  /* links */
-          first_page_url: '',
-          last_page_url: '',
-          current_page: '',
-          last_page: '',
-        }
+
       }
     },
     methods: {
-      getApi(endpoint){
-        this.isLoading = true;
-        axios.get(endpoint)
-        .then(res=>{
-          console.log(res.data);
-          store.projects = res.data.data;
-          this.paginator.links = res.data.links; /* links */
-          console.log(res.data.first_page_url);
-          this.isLoading = false;
 
-          //prima ed ultima pagina 
-          this.paginator.first_page_url = res.data.first_page_url;
-          this.paginator.last_page_url = res.data.last_page_url;
-          //dati che passo per capire quando disabilitare i bottoni first & last
-          this.paginator.current_page = res.data.current_page;
-          this.paginator.last_page = res.data.last_page;
-        })
-      },
-
-     /*  callApi(linkUrl){
-        console.log(linkUrl);
-      }  sposto tutta la funzionalità direttamente in getApi, usando un parametro "endpoint" che userò sia per fare la chiamata iniziale dandogli direttamente l'url in mounted(){}  */ 
     },
     mounted() {
 
-      this.getApi(store.apiUrl + 'projects');
       
     }
   }
 </script>
 
 <template>
-  <header>
-    <h1>Vite Boolfolio</h1>
-    
+  <Header />
+  <div class="main-wrapper">
+
+    <RouterView />
    
-  </header>
-
-  <main>
-    <div v-if="isLoading" class="loader-container">
-      <Loader  />
-
-    </div>
-    <ProjectCard v-else />
-
-    <div class="pag-nav-container" v-if="!isLoading">
-      
-      <PaginatorNav 
-      :paginator = "paginator"
-      
-      @callApi="getApi"/>   <!-- passo la props (vedi PaginatorNav ) -->  <!-- @callApi è il nome $emit, =funzione che richiamo -->
-    </div>
-   
-  </main>
+  </div>
 </template>
 
 <style lang="scss">
-  header{
-    h1{
-      margin-top: 50px;
-      color: white;
-      font-weight: 900;
-    }
-  }
-  .loader-container {
-    margin-top: 120px;
-  }
-
-  .pag-nav-container {
-    width: 600px;
-    margin: 0 300px;
+  .main-wrapper {
     
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:calc(100vh - 90px);
+    width: 100%;
+    background-color: burlywood;
+    color: white;
+    text-shadow:
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black;
+    h1{
+      font-size: 4rem;
+    }
   }
 </style>
