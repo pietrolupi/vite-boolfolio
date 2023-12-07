@@ -3,6 +3,7 @@ import Home from './pages/Home.vue';
 import Projects from './pages/Projects.vue';
 import About from './pages/About.vue';
 import Contacts from './pages/Contacts.vue';
+import ProjectDetail from './pages/ProjectDetail.vue';
 import Error404 from './pages/Error404.vue';
 
 
@@ -29,6 +30,12 @@ const router = createRouter({
       path: "/contatti",
       name: "Contacts",
       component: Contacts,
+    },
+
+    {
+      path: "/dettaglio-progetto/:slug",
+      name: 'ProjectDetail',
+      component: ProjectDetail,
     },
 
     //rotta 404 da mettere SEMPRE come ultimo elemento

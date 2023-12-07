@@ -31,7 +31,7 @@
     <span v-if="project.technologies.length !== 0">Asssociated Tech:</span>
     <br>
     <span v-for="technology in project.technologies" :key="technology.id"> <strong>{{ technology.name }}</strong></span>
-
+    <router-link :to="{name:'ProjectDetail', params:{slug: project.slug} }" > VEDI DETTAGLI </router-link>
   </div>
 </div>
 </template>
